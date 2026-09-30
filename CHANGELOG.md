@@ -4,6 +4,13 @@ All notable changes to this project will be documented here.
 
 ## [Unreleased]
 
+## [1.1.1] - 2026-09-30
+
+### Security
+
+- Every panel `Text` item, including the shared `DetailRow`, `MiniStat`, `FeeCell` and other display components, now renders with `textFormat: Text.PlainText`, so remote strings such as the mempool.space miner/pool name cannot be interpreted as rich text or load inline images.
+- Added `tests/plain-text.test.sh`, which fails if any QML `Text` item omits the plain-text format.
+
 ## [1.1.0] - 2026-09-30
 
 Forked from [nmorton13/omarchy-bitcoin-bar](https://github.com/nmorton13/omarchy-bitcoin-bar) 1.0.2 as `derekross.bitcoin`.

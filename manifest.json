@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "id": "derekross.bitcoin",
   "name": "Bitcoin",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "author": "Derek Ross (fork of Nathan Morton's omarchy-bitcoin-bar)",
   "license": "MIT",
   "description": "Bitcoin price, sats per dollar, block height, and fees on the bar; right-click to cycle what it shows",

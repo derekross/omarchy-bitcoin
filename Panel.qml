@@ -385,6 +385,7 @@ Panel {
                   width: parent.width
                   spacing: Style.space(8)
                   Text {
+                    textFormat: Text.PlainText
                     text: root.detailMode === "block" ? "BLOCK DETAILS" : "PRICE DETAILS"
                     color: root.foreground
                     font.family: root.fontFamily
@@ -398,7 +399,7 @@ Panel {
                     height: width
                     radius: width / 2
                     color: closeMouse.containsMouse ? Qt.rgba(root.foreground.r, root.foreground.g, root.foreground.b, 0.12) : "transparent"
-                    Text { anchors.centerIn: parent; text: "✕"; color: root.dim; font.pixelSize: Style.font.body }
+                    Text { textFormat: Text.PlainText; anchors.centerIn: parent; text: "✕"; color: root.dim; font.pixelSize: Style.font.body }
                     MouseArea { id: closeMouse; anchors.fill: parent; hoverEnabled: true; cursorShape: Qt.PointingHandCursor; onClicked: root.detailMode = "" }
                   }
                 }
@@ -411,6 +412,7 @@ Panel {
                   spacing: Style.space(9)
 
                   Text {
+                    textFormat: Text.PlainText
                     width: parent.width
                     text: root.blockData ? "#" + Model.formatNumber(root.blockData.height) : "No block data"
                     color: root.accent
@@ -437,6 +439,7 @@ Panel {
                   spacing: Style.space(9)
 
                   Text {
+                    textFormat: Text.PlainText
                     width: parent.width
                     text: root.priceData ? Model.formatPrice(root.priceData.priceUsd, "usd") : "No price data"
                     color: root.accent
@@ -449,7 +452,7 @@ Panel {
                     visible: root.priceChartValues.length >= 2
                     width: parent.width
                     spacing: Style.space(4)
-                    Text { text: "LAST 24H"; color: root.dim; font.family: root.fontFamily; font.pixelSize: Style.font.caption; font.letterSpacing: 1 }
+                    Text { textFormat: Text.PlainText; text: "LAST 24H"; color: root.dim; font.family: root.fontFamily; font.pixelSize: Style.font.caption; font.letterSpacing: 1 }
                     Canvas {
                       id: chart
                       width: parent.width
@@ -475,8 +478,8 @@ Panel {
                     }
                     Row {
                       width: parent.width
-                      Text { text: root.priceChartValues.length ? Model.formatPrice(Model.chartRange(root.priceChartValues).minimum, "usd") : ""; color: root.dim; font.family: root.fontFamily; font.pixelSize: Style.font.caption; width: parent.width / 2 }
-                      Text { text: root.priceChartValues.length ? Model.formatPrice(Model.chartRange(root.priceChartValues).maximum, "usd") : ""; color: root.dim; font.family: root.fontFamily; font.pixelSize: Style.font.caption; width: parent.width / 2; horizontalAlignment: Text.AlignRight }
+                      Text { textFormat: Text.PlainText; text: root.priceChartValues.length ? Model.formatPrice(Model.chartRange(root.priceChartValues).minimum, "usd") : ""; color: root.dim; font.family: root.fontFamily; font.pixelSize: Style.font.caption; width: parent.width / 2 }
+                      Text { textFormat: Text.PlainText; text: root.priceChartValues.length ? Model.formatPrice(Model.chartRange(root.priceChartValues).maximum, "usd") : ""; color: root.dim; font.family: root.fontFamily; font.pixelSize: Style.font.caption; width: parent.width / 2; horizontalAlignment: Text.AlignRight }
                     }
                   }
 
@@ -523,7 +526,7 @@ Panel {
               foreground: root.foreground
               fontFamily: root.fontFamily
               iconComponent: Component {
-                Text { text: "₿"; color: root.accent; font.family: root.fontFamily; font.pixelSize: Style.font.display; font.bold: true }
+                Text { textFormat: Text.PlainText; text: "₿"; color: root.accent; font.family: root.fontFamily; font.pixelSize: Style.font.display; font.bold: true }
               }
             }
 
@@ -539,18 +542,18 @@ Panel {
                 Rectangle {
                   width: Style.space(38); height: width; radius: Style.cornerRadius
                   color: Qt.rgba(root.accent.r, root.accent.g, root.accent.b, 0.16)
-                  Text { anchors.centerIn: parent; text: "₿"; color: root.accent; font.family: root.fontFamily; font.pixelSize: Style.font.heading; font.bold: true }
+                  Text { textFormat: Text.PlainText; anchors.centerIn: parent; text: "₿"; color: root.accent; font.family: root.fontFamily; font.pixelSize: Style.font.heading; font.bold: true }
                 }
                 Column {
                   width: parent.width - Style.space(112)
                   spacing: Style.space(2)
-                  Text { text: root.blockData ? "Block #" + Model.formatNumber(root.blockData.height) : "Block unavailable"; color: root.foreground; font.family: root.fontFamily; font.pixelSize: Style.font.body; font.bold: true }
-                  Text { text: root.blockData && root.blockData.timestamp ? Model.timeAgo(root.blockData.timestamp * 1000, root.nowMs) + "  •  click for details" : "Waiting for mempool.space"; color: root.dim; font.family: root.fontFamily; font.pixelSize: Style.font.caption }
+                  Text { textFormat: Text.PlainText; text: root.blockData ? "Block #" + Model.formatNumber(root.blockData.height) : "Block unavailable"; color: root.foreground; font.family: root.fontFamily; font.pixelSize: Style.font.body; font.bold: true }
+                  Text { textFormat: Text.PlainText; text: root.blockData && root.blockData.timestamp ? Model.timeAgo(root.blockData.timestamp * 1000, root.nowMs) + "  •  click for details" : "Waiting for mempool.space"; color: root.dim; font.family: root.fontFamily; font.pixelSize: Style.font.caption }
                 }
                 Column {
                   width: Style.space(60); spacing: Style.space(2)
-                  Text { width: parent.width; text: root.blockData ? Model.formatNumber(root.blockData.txCount) : "—"; color: root.foreground; font.family: root.fontFamily; font.pixelSize: Style.font.body; font.bold: true; horizontalAlignment: Text.AlignRight }
-                  Text { width: parent.width; text: "txns  ◀"; color: root.dim; font.family: root.fontFamily; font.pixelSize: Style.font.caption; horizontalAlignment: Text.AlignRight }
+                  Text { textFormat: Text.PlainText; width: parent.width; text: root.blockData ? Model.formatNumber(root.blockData.txCount) : "—"; color: root.foreground; font.family: root.fontFamily; font.pixelSize: Style.font.body; font.bold: true; horizontalAlignment: Text.AlignRight }
+                  Text { textFormat: Text.PlainText; width: parent.width; text: "txns  ◀"; color: root.dim; font.family: root.fontFamily; font.pixelSize: Style.font.caption; horizontalAlignment: Text.AlignRight }
                 }
               }
             }
@@ -569,11 +572,11 @@ Panel {
                   anchors.fill: parent; anchors.margins: Style.space(10); spacing: Style.space(4)
                   Row {
                     width: parent.width
-                    Text { text: "PRICE"; color: root.dim; font.family: root.fontFamily; font.pixelSize: Style.font.caption; font.letterSpacing: 1; width: parent.width / 2 }
-                    Text { text: root.priceData ? Model.formatPercent(root.priceData.change24h) : "—"; color: root.priceData && root.priceData.change24h >= 0 ? root.positive : root.negative; font.family: root.fontFamily; font.pixelSize: Style.font.caption; font.bold: true; width: parent.width / 2; horizontalAlignment: Text.AlignRight }
+                    Text { textFormat: Text.PlainText; text: "PRICE"; color: root.dim; font.family: root.fontFamily; font.pixelSize: Style.font.caption; font.letterSpacing: 1; width: parent.width / 2 }
+                    Text { textFormat: Text.PlainText; text: root.priceData ? Model.formatPercent(root.priceData.change24h) : "—"; color: root.priceData && root.priceData.change24h >= 0 ? root.positive : root.negative; font.family: root.fontFamily; font.pixelSize: Style.font.caption; font.bold: true; width: parent.width / 2; horizontalAlignment: Text.AlignRight }
                   }
-                  Text { text: root.priceData ? Model.formatPrice(root.priceData.priceUsd, "usd") : "—"; color: root.foreground; font.family: root.fontFamily; font.pixelSize: Style.font.heading; font.bold: true }
-                  Text { text: "details & chart  ◀"; color: root.dim; font.family: root.fontFamily; font.pixelSize: Style.font.caption }
+                  Text { textFormat: Text.PlainText; text: root.priceData ? Model.formatPrice(root.priceData.priceUsd, "usd") : "—"; color: root.foreground; font.family: root.fontFamily; font.pixelSize: Style.font.heading; font.bold: true }
+                  Text { textFormat: Text.PlainText; text: "details & chart  ◀"; color: root.dim; font.family: root.fontFamily; font.pixelSize: Style.font.caption }
                 }
               }
 
@@ -584,9 +587,9 @@ Panel {
                 MouseArea { anchors.fill: parent; hoverEnabled: true; cursorShape: Qt.PointingHandCursor; onEntered: { root.cursorActive = true; root.focusIndex = 2 } onClicked: root.cycleCurrency() }
                 Column {
                   anchors.fill: parent; anchors.margins: Style.space(10); spacing: Style.space(4)
-                  Text { text: Model.satsLabel(root.fiatCurrency); color: root.dim; font.family: root.fontFamily; font.pixelSize: Style.font.caption; font.letterSpacing: 1 }
-                  Text { text: root.selectedSats === null ? "—" : Model.formatNumber(root.selectedSats); color: root.foreground; font.family: root.fontFamily; font.pixelSize: Style.font.heading; font.bold: true }
-                  Text { text: root.fiatCurrency.toUpperCase() + "  •  click to cycle"; color: root.dim; font.family: root.fontFamily; font.pixelSize: Style.font.caption }
+                  Text { textFormat: Text.PlainText; text: Model.satsLabel(root.fiatCurrency); color: root.dim; font.family: root.fontFamily; font.pixelSize: Style.font.caption; font.letterSpacing: 1 }
+                  Text { textFormat: Text.PlainText; text: root.selectedSats === null ? "—" : Model.formatNumber(root.selectedSats); color: root.foreground; font.family: root.fontFamily; font.pixelSize: Style.font.heading; font.bold: true }
+                  Text { textFormat: Text.PlainText; text: root.fiatCurrency.toUpperCase() + "  •  click to cycle"; color: root.dim; font.family: root.fontFamily; font.pixelSize: Style.font.caption }
                 }
               }
             }
@@ -598,8 +601,8 @@ Panel {
                 anchors.left: parent.left; anchors.right: parent.right; anchors.verticalCenter: parent.verticalCenter; anchors.margins: Style.space(10); spacing: Style.space(8)
                 Row {
                   width: parent.width
-                  Text { text: "RECOMMENDED FEES"; color: root.dim; font.family: root.fontFamily; font.pixelSize: Style.font.caption; font.letterSpacing: 1; width: parent.width / 2 }
-                  Text { text: "sat/vB"; color: root.dim; font.family: root.fontFamily; font.pixelSize: Style.font.caption; width: parent.width / 2; horizontalAlignment: Text.AlignRight }
+                  Text { textFormat: Text.PlainText; text: "RECOMMENDED FEES"; color: root.dim; font.family: root.fontFamily; font.pixelSize: Style.font.caption; font.letterSpacing: 1; width: parent.width / 2 }
+                  Text { textFormat: Text.PlainText; text: "sat/vB"; color: root.dim; font.family: root.fontFamily; font.pixelSize: Style.font.caption; width: parent.width / 2; horizontalAlignment: Text.AlignRight }
                 }
                 Row {
                   width: parent.width; spacing: Style.space(8)
@@ -617,8 +620,8 @@ Panel {
                 anchors.left: parent.left; anchors.right: parent.right; anchors.verticalCenter: parent.verticalCenter; anchors.margins: Style.space(10); spacing: Style.space(8)
                 Row {
                   width: parent.width
-                  Text { text: "DIFFICULTY EPOCH " + (root.blockData ? Model.currentEpoch(root.blockData.height) : "—"); color: root.dim; font.family: root.fontFamily; font.pixelSize: Style.font.caption; font.letterSpacing: 1; width: parent.width * 0.65 }
-                  Text { text: root.difficultyData ? Model.formatPercent(root.difficultyData.difficultyChange) : "—"; color: root.difficultyData && root.difficultyData.difficultyChange >= 0 ? root.positive : root.negative; font.family: root.fontFamily; font.pixelSize: Style.font.body; font.bold: true; width: parent.width * 0.35; horizontalAlignment: Text.AlignRight }
+                  Text { textFormat: Text.PlainText; text: "DIFFICULTY EPOCH " + (root.blockData ? Model.currentEpoch(root.blockData.height) : "—"); color: root.dim; font.family: root.fontFamily; font.pixelSize: Style.font.caption; font.letterSpacing: 1; width: parent.width * 0.65 }
+                  Text { textFormat: Text.PlainText; text: root.difficultyData ? Model.formatPercent(root.difficultyData.difficultyChange) : "—"; color: root.difficultyData && root.difficultyData.difficultyChange >= 0 ? root.positive : root.negative; font.family: root.fontFamily; font.pixelSize: Style.font.body; font.bold: true; width: parent.width * 0.35; horizontalAlignment: Text.AlignRight }
                 }
                 Rectangle {
                   width: parent.width; height: Style.space(6); radius: height / 2
@@ -633,13 +636,14 @@ Panel {
                 }
                 Row {
                   width: parent.width
-                  Text { text: root.mempoolData ? "Mempool: " + Model.formatNumber(root.mempoolData.count) + " tx  •  " + Model.formatVsize(root.mempoolData.vsize) : "Mempool unavailable"; color: root.dim; font.family: root.fontFamily; font.pixelSize: Style.font.caption; width: parent.width * 0.62 }
-                  Text { text: root.difficultyData && root.difficultyData.estimatedRetargetDate ? "Est. " + Model.formatDate(root.difficultyData.estimatedRetargetDate) : ""; color: root.dim; font.family: root.fontFamily; font.pixelSize: Style.font.caption; width: parent.width * 0.38; horizontalAlignment: Text.AlignRight }
+                  Text { textFormat: Text.PlainText; text: root.mempoolData ? "Mempool: " + Model.formatNumber(root.mempoolData.count) + " tx  •  " + Model.formatVsize(root.mempoolData.vsize) : "Mempool unavailable"; color: root.dim; font.family: root.fontFamily; font.pixelSize: Style.font.caption; width: parent.width * 0.62 }
+                  Text { textFormat: Text.PlainText; text: root.difficultyData && root.difficultyData.estimatedRetargetDate ? "Est. " + Model.formatDate(root.difficultyData.estimatedRetargetDate) : ""; color: root.dim; font.family: root.fontFamily; font.pixelSize: Style.font.caption; width: parent.width * 0.38; horizontalAlignment: Text.AlignRight }
                 }
               }
             }
 
             Text {
+              textFormat: Text.PlainText
               visible: root.lastError !== ""
               width: parent.width
               text: "⚠  " + root.lastError
@@ -651,8 +655,8 @@ Panel {
 
             Row {
               width: parent.width
-              Text { text: root.fetching ? "Refreshing…" : (root.stale ? "STALE  •  " : "") + "Updated " + Model.timeAgo(root.lastSuccessfulFetch, root.nowMs); color: root.stale ? root.accent : root.dim; font.family: root.fontFamily; font.pixelSize: Style.font.caption; width: parent.width * 0.58 }
-              Text { text: root.priceSource ? "Price: " + root.priceSource : ""; color: root.dim; font.family: root.fontFamily; font.pixelSize: Style.font.caption; width: parent.width * 0.42; horizontalAlignment: Text.AlignRight }
+              Text { textFormat: Text.PlainText; text: root.fetching ? "Refreshing…" : (root.stale ? "STALE  •  " : "") + "Updated " + Model.timeAgo(root.lastSuccessfulFetch, root.nowMs); color: root.stale ? root.accent : root.dim; font.family: root.fontFamily; font.pixelSize: Style.font.caption; width: parent.width * 0.58 }
+              Text { textFormat: Text.PlainText; text: root.priceSource ? "Price: " + root.priceSource : ""; color: root.dim; font.family: root.fontFamily; font.pixelSize: Style.font.caption; width: parent.width * 0.42; horizontalAlignment: Text.AlignRight }
             }
 
             PanelSeparator { width: parent.width; foreground: root.foreground }
@@ -677,7 +681,7 @@ Panel {
             Column {
               width: parent.width
               spacing: Style.space(6)
-              Text { text: "AUTO REFRESH"; color: root.dim; font.family: root.fontFamily; font.pixelSize: Style.font.caption; font.letterSpacing: 1 }
+              Text { textFormat: Text.PlainText; text: "AUTO REFRESH"; color: root.dim; font.family: root.fontFamily; font.pixelSize: Style.font.caption; font.letterSpacing: 1 }
               Row {
                 width: parent.width; spacing: Style.space(6)
                 Repeater {
@@ -690,7 +694,7 @@ Panel {
                     color: root.refreshMinutes === modelData.value ? Qt.rgba(root.accent.r, root.accent.g, root.accent.b, 0.18) : Qt.rgba(root.foreground.r, root.foreground.g, root.foreground.b, refreshMouse.containsMouse ? 0.10 : 0.055)
                     border.width: root.refreshMinutes === modelData.value ? 1 : 0
                     border.color: root.accent
-                    Text { anchors.centerIn: parent; text: modelData.label; color: root.refreshMinutes === modelData.value ? root.accent : root.foreground; font.family: root.fontFamily; font.pixelSize: Style.font.caption; font.bold: root.refreshMinutes === modelData.value }
+                    Text { textFormat: Text.PlainText; anchors.centerIn: parent; text: modelData.label; color: root.refreshMinutes === modelData.value ? root.accent : root.foreground; font.family: root.fontFamily; font.pixelSize: Style.font.caption; font.bold: root.refreshMinutes === modelData.value }
                     MouseArea { id: refreshMouse; anchors.fill: parent; hoverEnabled: true; cursorShape: Qt.PointingHandCursor; onClicked: root.setRefreshMinutes(modelData.value) }
                   }
                 }
@@ -704,6 +708,7 @@ Panel {
             }
 
             Text {
+              textFormat: Text.PlainText
               width: parent.width
               text: "Data: mempool.space + CoinGecko  •  No accounts, API keys, analytics, or tracking"
               color: root.dim
@@ -726,6 +731,7 @@ Panel {
     radius: Style.cornerRadius
     color: linkMouse.containsMouse ? Qt.rgba(root.accent.r, root.accent.g, root.accent.b, 0.12) : "transparent"
     Text {
+      textFormat: Text.PlainText
       anchors.centerIn: parent
       text: "↗  " + externalLink.label
       color: linkMouse.containsMouse ? root.accent : root.dim
@@ -761,18 +767,18 @@ Panel {
     spacing: Style.space(2)
     Row {
       width: parent.width
-      Text { text: parent.parent.label; color: root.dim; font.family: root.fontFamily; font.pixelSize: Style.font.caption; width: parent.width * 0.40 }
-      Text { text: parent.parent.value; color: root.foreground; font.family: parent.parent.mono ? "monospace" : root.fontFamily; font.pixelSize: Style.font.bodySmall; font.bold: true; width: parent.width * 0.60; horizontalAlignment: Text.AlignRight; elide: Text.ElideMiddle }
+      Text { textFormat: Text.PlainText; text: parent.parent.label; color: root.dim; font.family: root.fontFamily; font.pixelSize: Style.font.caption; width: parent.width * 0.40 }
+      Text { textFormat: Text.PlainText; text: parent.parent.value; color: root.foreground; font.family: parent.parent.mono ? "monospace" : root.fontFamily; font.pixelSize: Style.font.bodySmall; font.bold: true; width: parent.width * 0.60; horizontalAlignment: Text.AlignRight; elide: Text.ElideMiddle }
     }
-    Text { visible: text !== ""; width: parent.width; text: parent.subvalue; color: root.dim; font.family: root.fontFamily; font.pixelSize: Style.font.caption; horizontalAlignment: Text.AlignRight }
+    Text { textFormat: Text.PlainText; visible: text !== ""; width: parent.width; text: parent.subvalue; color: root.dim; font.family: root.fontFamily; font.pixelSize: Style.font.caption; horizontalAlignment: Text.AlignRight }
   }
 
   component DeltaRow: Row {
     property string label: ""
     property var value: null
     width: parent ? parent.width : 0
-    Text { text: parent.label; color: root.dim; font.family: root.fontFamily; font.pixelSize: Style.font.caption; width: parent.width / 2 }
-    Text { text: Model.formatPercent(parent.value); color: parent.value !== null && parent.value >= 0 ? root.positive : root.negative; font.family: root.fontFamily; font.pixelSize: Style.font.bodySmall; font.bold: true; width: parent.width / 2; horizontalAlignment: Text.AlignRight }
+    Text { textFormat: Text.PlainText; text: parent.label; color: root.dim; font.family: root.fontFamily; font.pixelSize: Style.font.caption; width: parent.width / 2 }
+    Text { textFormat: Text.PlainText; text: Model.formatPercent(parent.value); color: parent.value !== null && parent.value >= 0 ? root.positive : root.negative; font.family: root.fontFamily; font.pixelSize: Style.font.bodySmall; font.bold: true; width: parent.width / 2; horizontalAlignment: Text.AlignRight }
   }
 
   component FeeCell: Rectangle {
@@ -786,8 +792,8 @@ Panel {
     color: Qt.rgba(root.foreground.r, root.foreground.g, root.foreground.b, 0.045)
     Column {
       anchors.centerIn: parent; spacing: Style.space(3)
-      Row { anchors.horizontalCenter: parent.horizontalCenter; spacing: Style.space(4); Rectangle { width: Style.space(6); height: width; radius: width / 2; color: feeCell.dotColor } Text { text: feeCell.label; color: root.dim; font.family: root.fontFamily; font.pixelSize: Style.font.caption } }
-      Text { anchors.horizontalCenter: parent.horizontalCenter; text: feeCell.value; color: root.foreground; font.family: root.fontFamily; font.pixelSize: Style.font.heading; font.bold: true }
+      Row { anchors.horizontalCenter: parent.horizontalCenter; spacing: Style.space(4); Rectangle { width: Style.space(6); height: width; radius: width / 2; color: feeCell.dotColor } Text { textFormat: Text.PlainText; text: feeCell.label; color: root.dim; font.family: root.fontFamily; font.pixelSize: Style.font.caption } }
+      Text { textFormat: Text.PlainText; anchors.horizontalCenter: parent.horizontalCenter; text: feeCell.value; color: root.foreground; font.family: root.fontFamily; font.pixelSize: Style.font.heading; font.bold: true }
     }
   }
 
@@ -796,8 +802,8 @@ Panel {
     property string value: "—"
     width: parent ? parent.width / 3 : 0
     spacing: Style.space(2)
-    Text { width: parent.width; text: parent.label; color: root.dim; font.family: root.fontFamily; font.pixelSize: Style.font.caption; horizontalAlignment: Text.AlignHCenter }
-    Text { width: parent.width; text: parent.value; color: root.foreground; font.family: root.fontFamily; font.pixelSize: Style.font.bodySmall; font.bold: true; horizontalAlignment: Text.AlignHCenter }
+    Text { textFormat: Text.PlainText; width: parent.width; text: parent.label; color: root.dim; font.family: root.fontFamily; font.pixelSize: Style.font.caption; horizontalAlignment: Text.AlignHCenter }
+    Text { textFormat: Text.PlainText; width: parent.width; text: parent.value; color: root.foreground; font.family: root.fontFamily; font.pixelSize: Style.font.bodySmall; font.bold: true; horizontalAlignment: Text.AlignHCenter }
   }
 
   component ActionRow: Rectangle {
@@ -814,8 +820,8 @@ Panel {
     opacity: enabled ? 1 : 0.5
     Row {
       anchors.fill: parent; anchors.leftMargin: Style.space(8); anchors.rightMargin: Style.space(8); spacing: Style.space(9)
-      Text { anchors.verticalCenter: parent.verticalCenter; text: actionRow.icon; color: root.accent; font.family: root.fontFamily; font.pixelSize: Style.font.heading; width: Style.space(24); horizontalAlignment: Text.AlignHCenter }
-      Column { anchors.verticalCenter: parent.verticalCenter; width: parent.width - Style.space(33); spacing: Style.space(1); Text { text: actionRow.title; color: root.foreground; font.family: root.fontFamily; font.pixelSize: Style.font.body } Text { text: actionRow.subtitle; color: root.dim; font.family: root.fontFamily; font.pixelSize: Style.font.caption } }
+      Text { textFormat: Text.PlainText; anchors.verticalCenter: parent.verticalCenter; text: actionRow.icon; color: root.accent; font.family: root.fontFamily; font.pixelSize: Style.font.heading; width: Style.space(24); horizontalAlignment: Text.AlignHCenter }
+      Column { anchors.verticalCenter: parent.verticalCenter; width: parent.width - Style.space(33); spacing: Style.space(1); Text { textFormat: Text.PlainText; text: actionRow.title; color: root.foreground; font.family: root.fontFamily; font.pixelSize: Style.font.body } Text { textFormat: Text.PlainText; text: actionRow.subtitle; color: root.dim; font.family: root.fontFamily; font.pixelSize: Style.font.caption } }
     }
     MouseArea { id: actionMouse; anchors.fill: parent; hoverEnabled: true; cursorShape: actionRow.enabled ? Qt.PointingHandCursor : Qt.ArrowCursor; enabled: actionRow.enabled; onClicked: actionRow.triggered() }
   }

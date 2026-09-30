@@ -5,6 +5,7 @@ cd "$(dirname "$0")/.."
 node tests/model.test.js
 node --check tests/model.test.js
 bash tests/fetch-json.test.sh
+bash tests/plain-text.test.sh
 jq empty manifest.json
 bash tests/validate-manifest.sh
 bash -n scripts/*.sh tests/*.sh
