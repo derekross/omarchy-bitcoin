@@ -1,10 +1,11 @@
 {
   "schemaVersion": 1,
-  "id": "nmorton.bitcoin",
+  "id": "derekross.bitcoin",
   "name": "Bitcoin",
-  "version": "1.0.2",
-  "author": "Nathan Morton",
-  "description": "Bitcoin network, fee, difficulty, and market data with rich detail panes",
+  "version": "1.1.0",
+  "author": "Derek Ross (fork of Nathan Morton's omarchy-bitcoin-bar)",
+  "license": "MIT",
+  "description": "Bitcoin price, sats per dollar, block height, and fees on the bar; right-click to cycle what it shows",
   "kinds": [
     "bar-widget"
   ],
@@ -13,9 +14,22 @@
   },
   "barWidget": {
     "displayName": "Bitcoin",
-    "description": "Bitcoin block height, price, fees, and network details",
+    "description": "Right-click to cycle price, sats/USD, block height, and fees; click for details",
     "category": "Info",
     "allowMultiple": false,
-    "defaultSection": "center"
+    "defaultSection": "center",
+    "defaults": {
+      "barMode": "price"
+    },
+    "schema": [
+      {
+        "key": "barMode",
+        "type": "enum",
+        "label": "Bar shows",
+        "description": "Right-click the bar to cycle through these.",
+        "options": ["price", "sats", "price-height", "price-height-fees"],
+        "defaultValue": "price"
+      }
+    ]
   }
 }

@@ -73,7 +73,7 @@ function currencySymbol(currency) {
 
 function satsLabel(currency) {
   var code = currencyCode(currency)
-  return code === "usd" ? "SATS/$" : "SATS/" + code.toUpperCase()
+  return "SATS/" + code.toUpperCase()
 }
 
 function nextCurrency(currency) {
@@ -150,6 +150,49 @@ function satsPerFiat(price) {
 function shortHash(hash) {
   var value = boundedString(hash)
   return value.length > 16 ? value.slice(0, 6) + "…" + value.slice(-6) : (value || "—")
+}
+
+var BAR_MODES = ["price", "sats", "price-height", "price-height-fees"]
+
+function barMode(mode) {
+  return BAR_MODES.indexOf(mode) >= 0 ? mode : "price"
+}
+
+function nextBarMode(mode) {
+  return BAR_MODES[(BAR_MODES.indexOf(barMode(mode)) + 1) % BAR_MODES.length]
+}
+
+function barModeName(mode) {
+  switch (barMode(mode)) {
+  case "sats": return "sats per USD"
+  case "price-height": return "price + block height"
+  case "price-height-fees": return "price + block height + fees"
+  }
+  return "USD price"
+}
+
+// The bar has little room, so prices drop the cents and each part falls back
+// to a dash on its own. With no data at all the bar shows just the symbol.
+function barLabel(mode, priceUsd, height, fee) {
+  var price = finiteNumber(priceUsd)
+  var sats = satsPerFiat(price)
+  var blockHeight = finiteNumber(height)
+  var feeRate = finiteNumber(fee)
+  var priceText = price === null ? "—" : "$" + groupedFixed(price, 0)
+  var heightText = blockHeight === null ? "#—" : "#" + formatNumber(blockHeight)
+  var feeText = (feeRate === null ? "—" : formatFee(feeRate)) + " sat/vB"
+
+  switch (barMode(mode)) {
+  case "sats":
+    return sats === null ? "₿" : formatNumber(sats) + " sats/USD"
+  case "price-height":
+    if (price === null && blockHeight === null) return "₿"
+    return priceText + " · " + heightText
+  case "price-height-fees":
+    if (price === null && blockHeight === null && feeRate === null) return "₿"
+    return priceText + " · " + heightText + " · " + feeText
+  }
+  return price === null ? "₿" : priceText
 }
 
 function parseJson(text) {

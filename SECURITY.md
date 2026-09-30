@@ -1,6 +1,6 @@
 # Security
 
-Please report suspected vulnerabilities privately through an X direct message to [@nmorton](https://x.com/nmorton). If direct messages are unavailable, contact the maintainer on X to request a private reporting channel without including vulnerability details.
+Please report suspected vulnerabilities privately through GitHub's [private vulnerability reporting](https://github.com/derekross/omarchy-bitcoin/security/advisories/new) for this repository.
 
 Do not disclose suspected vulnerabilities in a public issue.
 

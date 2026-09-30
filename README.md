@@ -2,6 +2,8 @@
 
 A native [Omarchy](https://omarchy.org/) 4.0+ bar widget for live Bitcoin network and market data. It ports the compact card interface and interactions of [BitcoinBar for macOS](https://github.com/nmorton13/macos-bitcoin-menu-bar) to Quickshell while following Omarchy's bar, theming, keyboard, and popout conventions.
 
+This is a fork of Nathan Morton's [omarchy-bitcoin-bar](https://github.com/nmorton13/omarchy-bitcoin-bar). It adds a choice of what the bar shows — USD price, sats per USD, price with block height, or price with block height and fees — and right-clicking the bar cycles through them.
+
 ![Bitcoin summary](docs/images/bitcoin-summary.png)
 
 <table>
@@ -21,6 +23,7 @@ A native [Omarchy](https://omarchy.org/) 4.0+ bar widget for live Bitcoin networ
 - BTC/USD price and 24-hour change in the summary
 - Animated **left-side block detail pane** when the block card is selected
 - Animated **left-side price detail pane** with a 24-hour chart, 24h/7d/30d change, range, ATH/ATL and dates, clickable source attribution, and update age
+- Four bar views, cycled with a right-click: USD price, sats per USD, price + block height, and price + block height + next-block fee
 - Sats-per-fiat display; click to cycle USD, EUR, GBP, JPY, CAD, AUD, CHF, CNY, HKD, and SGD
 - Low, medium, and high recommended fees
 - Mempool transaction count and virtual size
@@ -34,13 +37,13 @@ A native [Omarchy](https://omarchy.org/) 4.0+ bar widget for live Bitcoin networ
 ## Install
 
 ```bash
-omarchy plugin add https://github.com/nmorton13/omarchy-bitcoin-bar.git --enable
+omarchy plugin add https://github.com/derekross/omarchy-bitcoin.git --enable
 ```
 
 Omarchy validates the repository and installs it as:
 
 ```text
-~/.config/omarchy/plugins/nmorton.bitcoin/
+~/.config/omarchy/plugins/derekross.bitcoin/
 ```
 
 Plugins execute inside the long-running Omarchy shell process. Review third-party plugin source before enabling it.
@@ -48,16 +51,16 @@ Plugins execute inside the long-running Omarchy shell process. Review third-part
 ### Remove
 
 ```bash
-omarchy plugin remove nmorton.bitcoin
+omarchy plugin remove derekross.bitcoin
 ```
 
 ## Interaction
 
 | Input | Action |
 |---|---|
-| Left-click bar icon | Open or close the summary |
-| Middle-click bar icon | Refresh |
-| Right-click bar icon | Switch between the Bitcoin symbol and block height |
+| Left-click bar | Open or close the summary |
+| Middle-click bar | Refresh |
+| Right-click bar | Cycle the bar display: USD price → sats/USD → price + block height → price + block height + fees |
 | Block card or `B` | Toggle the left-side block details |
 | Price card or `P` | Toggle the left-side chart and price details |
 | Sats card or `C` | Cycle fiat currency |
@@ -87,18 +90,18 @@ Every request is issued through `scripts/fetch-json.sh`, which enforces a per-en
 Clone the repository and run the test suite:
 
 ```bash
-git clone https://github.com/nmorton13/omarchy-bitcoin-bar.git
-cd omarchy-bitcoin-bar
+git clone https://github.com/derekross/omarchy-bitcoin.git
+cd omarchy-bitcoin
 ./tests/run.sh
 ```
 
 To test a checkout in the live shell, copy it rather than symlinking it—Omarchy rejects plugin symlinks:
 
 ```bash
-rm -rf ~/.config/omarchy/plugins/nmorton.bitcoin
-cp -a . ~/.config/omarchy/plugins/nmorton.bitcoin
+rm -rf ~/.config/omarchy/plugins/derekross.bitcoin
+cp -a . ~/.config/omarchy/plugins/derekross.bitcoin
 omarchy-shell shell rescanPlugins
-omarchy plugin enable nmorton.bitcoin --section center
+omarchy plugin enable derekross.bitcoin --section center
 ```
 
 Files below `~/.config/omarchy/plugins/` hot-reload. A shell restart may be needed after changing popup geometry:
@@ -127,4 +130,4 @@ Bug reports and focused pull requests are welcome. See [CONTRIBUTING.md](CONTRIB
 
 ## License
 
-[MIT](LICENSE) © 2026 Nathan Morton
+[MIT](LICENSE) © 2026 Nathan Morton; modifications © 2026 Derek Ross

@@ -4,7 +4,7 @@ import qs.Ui
 
 BarWidget {
   id: root
-  moduleName: "nmorton.bitcoin"
+  moduleName: "derekross.bitcoin"
 
   function injectPanel() {
     var target = panelLoader.item
@@ -20,7 +20,7 @@ BarWidget {
   function open() { if (panelLoader.item) panelLoader.item.openFromHotkey() }
   function close() { if (panelLoader.item) panelLoader.item.close() }
   function closeForPopoutSwitch() { if (panelLoader.item) panelLoader.item.closeForPopoutSwitch() }
-  function cycleIconStyle() { if (panelLoader.item) panelLoader.item.cycleIconStyle() }
+  function cycleBarMode() { if (panelLoader.item) panelLoader.item.cycleBarMode() }
 
   readonly property bool opened: panelLoader.item ? panelLoader.item.opened === true : false
   readonly property bool popoutSwitchClosing: panelLoader.item ? panelLoader.item.popoutSwitchClosing === true : false
@@ -52,10 +52,10 @@ BarWidget {
     fontSize: root.label.length > 3 ? Style.font.bodySmall : Style.bar.iconFont
     horizontalMargin: 8.75
     dimmed: root.stale
-    tooltipText: root.stale ? "Bitcoin data is stale — click to refresh and view" : "Bitcoin network and market data"
+    tooltipText: root.stale ? "Bitcoin data is stale — middle-click to refresh" : "Click for details · right-click to switch view"
 
     onPressed: function(mouseButton) {
-      if (mouseButton === Qt.RightButton) root.cycleIconStyle()
+      if (mouseButton === Qt.RightButton) root.cycleBarMode()
       else if (mouseButton === Qt.MiddleButton) root.refresh()
       else root.togglePanel()
     }

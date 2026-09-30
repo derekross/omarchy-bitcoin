@@ -8,8 +8,8 @@ import "Model.js" as Model
 
 Panel {
   id: root
-  moduleName: "nmorton.bitcoin"
-  ipcTarget: "nmorton.bitcoin"
+  moduleName: "derekross.bitcoin"
+  ipcTarget: "derekross.bitcoin"
   manageIpc: false
 
   property var anchorItem: null
@@ -44,9 +44,12 @@ Panel {
     return [0, 5, 10, 15].indexOf(value) >= 0 ? value : 10
   }
   readonly property string fiatCurrency: Model.currencyCode(setting("fiatCurrency", "usd"))
-  readonly property string iconStyle: String(setting("iconStyle", "bitcoin")) === "height" ? "height" : "bitcoin"
+  readonly property string barMode: Model.barMode(String(setting("barMode", "price")))
   readonly property bool stale: Model.isStale(lastSuccessfulFetch, refreshMinutes, nowMs)
-  readonly property string barLabel: iconStyle === "height" && blockData ? "₿" + Model.formatNumber(blockData.height) : "₿"
+  readonly property string barLabel: Model.barLabel(barMode,
+    priceData ? priceData.priceUsd : null,
+    blockData ? blockData.height : null,
+    feeData ? feeData.fastestFee : null)
   readonly property var selectedFiatPrice: priceData && priceData.currentPrice ? Model.finiteNumber(priceData.currentPrice[fiatCurrency]) : null
   readonly property var selectedSats: Model.satsPerFiat(selectedFiatPrice)
   readonly property var priceChartValues: priceData ? Model.chartValues(priceData.sparkline, 24) : []
@@ -88,7 +91,7 @@ Panel {
   }
 
   function cycleCurrency() { persistSetting("fiatCurrency", Model.nextCurrency(fiatCurrency)) }
-  function cycleIconStyle() { persistSetting("iconStyle", iconStyle === "bitcoin" ? "height" : "bitcoin") }
+  function cycleBarMode() { persistSetting("barMode", Model.nextBarMode(barMode)) }
   function setRefreshMinutes(value) { persistSetting("refreshMinutes", value) }
   function openExternal(url) {
     if (url) Quickshell.execDetached(["omarchy-launch-browser", String(url)])
@@ -104,7 +107,7 @@ Panel {
     else if (focusIndex === 1 && priceData) showDetails("price")
     else if (focusIndex === 2) cycleCurrency()
     else if (focusIndex === 3) refresh(true)
-    else if (focusIndex === 4) cycleIconStyle()
+    else if (focusIndex === 4) cycleBarMode()
   }
 
   function moveFocus(dx, dy) {
@@ -666,9 +669,9 @@ Panel {
             ActionRow {
               selected: root.cursorActive && root.focusIndex === 4
               icon: "󰍹"
-              title: "Bar label: " + (root.iconStyle === "height" ? "block height" : "Bitcoin symbol")
-              subtitle: "Right-click the bar icon to switch"
-              onTriggered: root.cycleIconStyle()
+              title: "Bar shows: " + Model.barModeName(root.barMode)
+              subtitle: "Right-click the bar to switch"
+              onTriggered: root.cycleBarMode()
             }
 
             Column {

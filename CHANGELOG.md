@@ -4,6 +4,14 @@ All notable changes to this project will be documented here.
 
 ## [Unreleased]
 
+## [1.1.0] - 2026-09-30
+
+Forked from [nmorton13/omarchy-bitcoin-bar](https://github.com/nmorton13/omarchy-bitcoin-bar) 1.0.2 as `derekross.bitcoin`.
+
+- Added four bar views: USD price, sats per USD, price + block height, and price + block height + next-block fee. The choice persists and can also be set in the widget settings.
+- Right-click now cycles the bar view; left-click opens the summary.
+- The sats label reads `SATS/USD` for US dollars, matching the other currencies.
+
 ## [1.0.2] - 2026-09-01
 
 - Corrected the author name to Nathan Morton.
